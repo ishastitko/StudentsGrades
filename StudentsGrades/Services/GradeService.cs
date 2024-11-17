@@ -37,5 +37,33 @@ namespace StudentsGrades.Services
             return await _context.Grades
                 .FindAsync(gradeId);
         }
+
+        public async Task<IEnumerable<Grade>> GetAllGradesAsync()
+        {
+            return await _context.Grades.ToListAsync();
+        }
+
+        public async Task UpdateGradeAsync(Guid gradeId, int newGrade)
+        {
+            var grade = await _context.Grades.FindAsync(gradeId);
+            if (grade != null)
+            {
+                grade.GradeGot = newGrade;
+                //existingGrade.DateTime = grade.DateTime;
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task DeleteGradeAsync(Guid gradeId)
+        {
+            var grade = await _context.Grades.FindAsync(gradeId);
+            if (grade != null)
+            {
+                _context.Grades.Remove(grade);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+
     }
 }

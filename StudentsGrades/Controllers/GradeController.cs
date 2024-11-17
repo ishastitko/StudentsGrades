@@ -17,6 +17,12 @@ namespace StudentsGrades.Controllers
             _gradeService = gradeService;
         }
 
+        [HttpGet]
+        public async Task<IEnumerable<Grade>> GetGrades()
+        {
+            return await _gradeService.GetAllGradesAsync();
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetGradeById(Guid id)
         {
@@ -34,6 +40,18 @@ namespace StudentsGrades.Controllers
 
             return CreatedAtAction(nameof(GetGradeById),
                 new { id = grade.GradeId }, grade);
+        }
+
+        [HttpPut]
+        public async Task UpdateGrade(Guid gradeId, int newGrateGot)
+        {
+            await _gradeService.UpdateGradeAsync(gradeId, newGrateGot);
+        }
+
+        [HttpDelete]
+        public async Task DeleteAsync(Guid gradeId)
+        {
+            await _gradeService.DeleteGradeAsync(gradeId);
         }
 
     }
