@@ -1,13 +1,17 @@
-﻿namespace StudentsGrades.Models
+﻿using System.Text.Json.Serialization;
+
+namespace StudentsGrades.Models
 {
     public class Student
     {
         public Guid StudentId { get; set; }
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
-        
-        public List<Grade> Grades { get; set; } = new List<Grade>();
-        public List<Subject> Subjects { get; set; } = new List<Subject>();
+
+        [JsonIgnore]
+        public List<Grade> Grades { get; set; } = [];
+        [JsonIgnore]
+        public List<Subject> Subjects { get; set; } = [];
 
         public Student() { }
 

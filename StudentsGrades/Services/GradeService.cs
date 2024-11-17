@@ -35,7 +35,7 @@ namespace StudentsGrades.Services
         public async Task<Grade?> GetGradeByIdAsync(Guid gradeId)
         {
             return await _context.Grades
-                .FirstOrDefaultAsync(s => s.GradeId == gradeId);
+                .FindAsync(gradeId);
         }
     }
 }

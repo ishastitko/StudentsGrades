@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using StudentsGrades.Services;
 using StudentsGrades.Models;
+using StudentsGrades.Data;
 
 namespace StudentsGrades.Controllers
 {
@@ -9,7 +10,7 @@ namespace StudentsGrades.Controllers
     [ApiController]
     public class GradeController : ControllerBase
     {
-        private IGradeService _gradeService;
+        private readonly IGradeService _gradeService;
 
         public GradeController(IGradeService gradeService)
         {
@@ -34,5 +35,6 @@ namespace StudentsGrades.Controllers
             return CreatedAtAction(nameof(GetGradeById),
                 new { id = grade.GradeId }, grade);
         }
+
     }
 }
