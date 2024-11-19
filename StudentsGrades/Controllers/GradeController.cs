@@ -18,6 +18,7 @@ namespace StudentsGrades.Controllers
         }
 
         [HttpGet]
+        [Route("Get")]
         public async Task<IEnumerable<Grade>> GetGrades()
         {
             return await _gradeService.GetAllGradesAsync();
@@ -34,6 +35,7 @@ namespace StudentsGrades.Controllers
         }
 
         [HttpPost]
+        [Route("Post")]
         public async Task<ActionResult<Grade>> CreateGrade(int gradeGot, string firstName, string lastName, string subjectName)
         {
             var grade = await _gradeService.CreateGradeAsync(gradeGot, firstName, lastName, subjectName);
@@ -43,12 +45,14 @@ namespace StudentsGrades.Controllers
         }
 
         [HttpPut]
+        [Route("Update")]
         public async Task UpdateGrade(Guid gradeId, int newGrateGot)
         {
             await _gradeService.UpdateGradeAsync(gradeId, newGrateGot);
         }
 
         [HttpDelete]
+        [Route("Delete")]
         public async Task DeleteAsync(Guid gradeId)
         {
             await _gradeService.DeleteGradeAsync(gradeId);

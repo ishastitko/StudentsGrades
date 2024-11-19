@@ -40,7 +40,10 @@ namespace StudentsGrades.Services
 
         public async Task<IEnumerable<Grade>> GetAllGradesAsync()
         {
-            return await _context.Grades.ToListAsync();
+            return await _context.Grades
+                .Include(s  => s.Student)
+                .Include(j => j.Subject)
+                .ToListAsync();
         }
 
         public async Task UpdateGradeAsync(Guid gradeId, int newGrade)

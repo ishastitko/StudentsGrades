@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace StudentsGrades.Models
+﻿namespace StudentsGrades.Models
 {
     public class Grade
     {
@@ -12,9 +10,9 @@ namespace StudentsGrades.Models
         public Guid SubjectId { get; set; }
 
         //[JsonIgnore]
-        public Student Student { get; set; } = null!;
+        public Student? Student { get; set; }
         //[JsonIgnore]
-        public Subject Subject { get; set; } = null!;
+        public Subject? Subject { get; set; }
 
         public Grade() { }
 
@@ -22,7 +20,7 @@ namespace StudentsGrades.Models
         {
             GradeId = Guid.NewGuid();
             GradeGot = gradeGot;
-            //DateTime = DateTime.Now;
+            DateTime = DateTime.UtcNow;
             StudentId = studentId;
             SubjectId = subjectId;
         }

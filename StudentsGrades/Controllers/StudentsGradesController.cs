@@ -18,13 +18,10 @@ namespace StudentsGrades.Controllers{
             _studentService = studentService;
         }
 
-        [HttpGet]
-        /*public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
+        /*[HttpGet]
+        public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
-            return await _context.Students
-                .Include(s => s.Subjects)
-                .Include(s => s.Grades)
-                .ToListAsync();
+            return await _studentService.
         }*/
 
         [HttpGet("{id}")]
