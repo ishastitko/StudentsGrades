@@ -8,6 +8,8 @@ namespace StudentsGrades.Models
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
 
+        // JsonIgnore helps not sending unnecessary data to frontend
+        // In that case we don't need a list of all Grades and Subjects of a Student
         [JsonIgnore]
         public List<Grade> Grades { get; set; } = [];
         [JsonIgnore]

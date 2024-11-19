@@ -6,5 +6,7 @@ namespace StudentsGrades.Services
     {
         Task<Subject> CreateSubjectAsync(string subjectName);
         Task<Subject?> GetSubjectByIdAsync(Guid subjectId);
+        Task<Subject?> GetSubjectByNameAsync(string subjectName);
+        Task DeleteSubjectAsync(Guid subjectId);
     }
 }

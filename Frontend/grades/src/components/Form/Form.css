@@ -32,3 +32,9 @@
 .grade-form button:hover {
   opacity: 0.9;
 }
+
+.grade-form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.9;
+  background-color: #ccc;
+}

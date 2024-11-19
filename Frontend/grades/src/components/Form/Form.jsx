@@ -1,11 +1,25 @@
 import "./Form.css";
 import { useState } from "react";
 
-export default function Form({onCreate}) {
+export default function Form({ onCreate }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [subjectName, setSubjectName] = useState("");
   const [gradeGot, setGradeGot] = useState("");
+  const [hasError, setHasError] = useState(true);
+
+  const validateForm = (updateValues = {}) => {
+    const fName = updateValues.firstName ?? firstName;
+    const lName = updateValues.lastName ?? lastName;
+    const grade = updateValues.gradeGot ?? gradeGot;
+
+    const nameRegex = /^[A-Za-z]+$/;
+    const isFirstNameValid = nameRegex.test(fName);
+    const isLastNameValid = nameRegex.test(lName);
+    const isGradeValid = grade >= 1 && grade <= 4;
+
+    setHasError(!(isFirstNameValid && isLastNameValid && isGradeValid));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,21 +30,34 @@ export default function Form({onCreate}) {
     setGradeGot("");
   };
 
+  const handleFirstNameChange = (e) => {
+    setFirstName(e);
+    validateForm({ firstName: e });
+  };
+
+  const handleLastNameChange = (e) => {
+    setLastName(e);
+    validateForm({ lastName: e });
+  };
+
+  const handleGradeChange = (e) => {
+    const grade = Number(e);
+    setGradeGot(e);
+    validateForm({ gradeGot: grade });
+  };
+
   return (
     <div className="node-form">
-      <form
-        class="grade-form"
-        onSubmit={handleSubmit}
-      >
+      <form class="grade-form" onSubmit={handleSubmit}>
         <input
           placeholder="First Name"
           value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
+          onChange={(e) => handleFirstNameChange(e.target.value)}
         />
         <input
           placeholder="Last Name"
           value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
+          onChange={(e) => handleLastNameChange(e.target.value)}
         />
         <input
           placeholder="Subject"
@@ -40,9 +67,11 @@ export default function Form({onCreate}) {
         <input
           placeholder="Grade"
           value={gradeGot}
-          onChange={(e) => setGradeGot(e.target.value)}
+          onChange={(e) => handleGradeChange(e.target.value)}
         />
-        <button type="submit">Submit</button>
+        <button disabled={hasError} type="submit">
+          Submit
+        </button>
       </form>
     </div>
   );

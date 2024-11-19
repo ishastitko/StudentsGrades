@@ -30,5 +30,26 @@ namespace StudentsGrades.Services
                 .Include(s => s.Grades)
                 .FirstOrDefaultAsync(s => s.StudentId == studentId);
         }
+
+        public async Task<Student?> GetStudentByNameAsync(string firstName, string lastName)
+        {
+            return await _context.Students
+                .FirstOrDefaultAsync(s => s.FirstName == firstName && s.LastName == lastName);
+        }
+
+        public async Task DeleteStudentAsync(Guid studentId)
+        {
+            var student = await _context.Students.FindAsync(studentId);
+
+            if (student != null)
+            {
+                // Student will be deleted only if it has no grades and subjects
+                if (student.Grades.Count == 0 && student.Subjects.Count == 0)
+                {
+                    _context.Students.Remove(student);
+                    await _context.SaveChangesAsync();
+                }
+            }
+        }
     }
 }

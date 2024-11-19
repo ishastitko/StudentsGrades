@@ -38,6 +38,10 @@ namespace StudentsGrades.Controllers
         [Route("Post")]
         public async Task<ActionResult<Grade>> CreateGrade(int gradeGot, string firstName, string lastName, string subjectName)
         {
+            var dataValidation = _gradeService.DataValidation(gradeGot, firstName, lastName, subjectName);
+            if (!dataValidation)
+                return BadRequest();
+
             var grade = await _gradeService.CreateGradeAsync(gradeGot, firstName, lastName, subjectName);
 
             return CreatedAtAction(nameof(GetGradeById),

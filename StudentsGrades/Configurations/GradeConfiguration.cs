@@ -13,12 +13,14 @@ namespace StudentsGrades.Configurations
             builder
                 .HasOne(g => g.Student)
                 .WithMany(s => s.Grades)
-                .HasForeignKey(g => g.StudentId);
+                .HasForeignKey(g => g.StudentId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .HasOne(g => g.Subject)
                 .WithMany(j => j.Grades)
-                .HasForeignKey(g => g.SubjectId);
+                .HasForeignKey(g => g.SubjectId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

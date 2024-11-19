@@ -6,9 +6,8 @@ namespace StudentsGrades.Services
     {
         Task<Student> CreateStudentAsync(string firstName, string lastName);
         Task<Student?> GetStudentByIdAsync(Guid studentId);
-        //Task<IEnumerable<Student>> GetAllStudentsAsync();
-        //Task UpdateStudentAsync(Student student);
-        //Task DeleteStudentAsync(Guid studentId);
+        Task<Student?> GetStudentByNameAsync(string firstName, string lastName);
+        Task DeleteStudentAsync(Guid studentId);
 
     }
 }

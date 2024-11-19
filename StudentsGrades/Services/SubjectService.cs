@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentsGrades.Data;
 using StudentsGrades.Models;
-using System.Linq;
 
 namespace StudentsGrades.Services
 {
@@ -30,6 +29,27 @@ namespace StudentsGrades.Services
                 .Include(s => s.Students)
                 .Include(s => s.Grades)
                 .FirstOrDefaultAsync(s => s.SubjectId == subjectId);
+        }
+
+        public async Task<Subject?> GetSubjectByNameAsync(string subjectName)
+        {
+            return await _context.Subjects
+                .FirstOrDefaultAsync(s => s.SubjectName == subjectName);
+        }
+
+        public async Task DeleteSubjectAsync(Guid subjectId)
+        {
+            var subject = await _context.Subjects.FindAsync(subjectId);
+
+            if (subject != null)
+            {
+                // Subject will be deleted only if it has no students and grades
+                if (subject.Grades.Count == 0 && subject.Students.Count == 0)
+                {
+                    _context.Subjects.Remove(subject);
+                    await _context.SaveChangesAsync();
+                }
+            }
         }
     }
 }

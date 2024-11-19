@@ -4,6 +4,7 @@ namespace StudentsGrades.Services
 {
     public interface IGradeService
     {
+        bool DataValidation(int gradeGot, string firstName, string lastName, string subjectName);
         Task<Grade> CreateGradeAsync(int gradeGot, string firstName, string lastName, string subjectName);
         Task<Grade?> GetGradeByIdAsync(Guid gradeId);
         Task<IEnumerable<Grade>> GetAllGradesAsync();

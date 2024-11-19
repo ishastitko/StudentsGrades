@@ -6,12 +6,11 @@
         public int GradeGot {  get; set; }
         public DateTime DateTime { get; set; }
 
+        // Id's for referencing to objects
         public Guid StudentId { get; set; }
         public Guid SubjectId { get; set; }
 
-        //[JsonIgnore]
         public Student? Student { get; set; }
-        //[JsonIgnore]
         public Subject? Subject { get; set; }
 
         public Grade() { }
