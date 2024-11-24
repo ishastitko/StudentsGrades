@@ -14,7 +14,6 @@ export default function GradeNode({
   const [newGrade, setNewGrade] = useState(gradeGot);
   const [inputLabel, setInputLabel] = useState(false);
 
-  const ttt = 4;
   const dateArr = dateTime.split("-");
   const date = dateArr[2].concat(".", dateArr[1], ".", dateArr[0]);
 
@@ -31,22 +30,27 @@ export default function GradeNode({
 
   const handleChangeCancel = (e) => {
     e.preventDefault();
+    setNewGrade(gradeGot);
     setInputLabel(false);
   };
 
   return (
     <div className="grade-node">
-      <label>{firstName}</label>
-      <label>{lastName}</label>
-      <label>{subjectName}</label>
+      <label className="label-node">{firstName}</label>
+      <label className="label-node">{lastName}</label>
+      <label className="label-node">{subjectName}</label>
 
-      {inputLabel == false && <label>{gradeGot}</label>}
+      {inputLabel == false && <label className="label-grade shared-grade">{gradeGot}</label>}
 
       {inputLabel == true && (
-        <input value={newGrade} onChange={(e) => setNewGrade(e.target.value)} />
+        <input
+          className="input-grade shared-grade"
+          value={newGrade}
+          onChange={(e) => setNewGrade(e.target.value)}
+        />
       )}
 
-      <label>{date}</label>
+      <label className="label-node">{date}</label>
 
       {inputLabel == false && (
         <button className="update-button" onClick={handleChange}>

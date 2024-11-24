@@ -1,5 +1,6 @@
 import './App.css';
 import GradesLayout from './components/GradesLayout/GradesLayout'
+import { HiAcademicCap } from 'react-icons/fa'
 
 function App() {
   return (

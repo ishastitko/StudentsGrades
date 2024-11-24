@@ -1,7 +1,7 @@
 .grade-node {
   border-bottom: 1px solid #eaeaea;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   padding: 5px 15px;
 }
@@ -10,27 +10,31 @@
   background-color: #f1f1f1;
 }
 
-.grade-node label {
+.grade-node .label-node {
+  width: auto;
   flex: 1;
   text-align: left;
   font-size: 16px;
-  color: #333;
   padding: 0 10px;
 }
 
-.grade-node input {
-  flex: 1;
-  text-align: left;
+.grade-node .shared-grade {
+  width: 50px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
   font-size: 16px;
-  color: #333;
-  padding: 0 10px;
-  width: 143px;
+}
+
+.grade-node .input-grade {
+  box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 .grade-node button {
-  padding: 6px 12px;
+  width: 70px;
+  padding: 6px;
   font-size: 16px;
   border: none;
   border-radius: 4px;

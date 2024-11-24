@@ -15,8 +15,6 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
 });
 
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -24,7 +22,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<StudentsGradesDbContext>(
     options =>
 {
-    options.UseNpgsql(configuration.GetConnectionString(nameof(StudentsGradesDbContext)));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Database"));
 });
 
 builder.Services.AddScoped<IStudentService, StudentService>();
@@ -52,8 +50,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors();
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

@@ -95,7 +95,8 @@ export default function GradesLayout() {
       <div>
         <Form onCreate={handleCreate} />
       </div>
-
+      <div>
+      </div>
       <div className="list-layout">
         {grades.map((grade) => (
           <GradeNode
