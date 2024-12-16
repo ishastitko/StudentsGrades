@@ -35,16 +35,25 @@ namespace StudentsGrades.Services
 
         public async Task<Grade> CreateGradeAsync(int gradeGot, string firstName, string lastName, string subjectName)
         {
-            // first we check if student or subject already exist in the database
-            // we get the data if they do exist
-            // or create new instances if the don't
+            /*
+             * first we check if student or subject already exist in the database
+             * we get the data if they do exist
+             * or create new instances if they don't
+             */
             var student = await _studentService.GetStudentByNameAsync(firstName, lastName);
             var subject = await _subjectService.GetSubjectByNameAsync(subjectName);
 
-            // updating grade if student and subject already exist
+            // updating grade and finishing the method if student and subject already exist
             if (student != null && subject != null)
             {
-                
+                var existGrade = await _context.Grades
+                    .FirstOrDefaultAsync(g => g.StudentId == student.StudentId && g.SubjectId == subject.SubjectId);
+
+                if (existGrade != null)
+                {
+                    await UpdateGradeAsync(existGrade.GradeId, gradeGot);
+                    return existGrade;
+                }
             }
 
             if (student == null)
@@ -58,15 +67,18 @@ namespace StudentsGrades.Services
             grade.Student = student;
             grade.Subject = subject;
 
+            var studentSubject = new StudentSubject(student.StudentId, subject.SubjectId);
+            await _context.StudentSubjects.AddAsync(studentSubject);
+
             // linking students, subjects and grades
             student.Grades.Add(grade);
-            student.Subjects.Add(subject);
+            student.StudentSubjects.Add(studentSubject);
 
             subject.Grades.Add(grade);
-            subject.Students.Add(student);
+            subject.StudentSubjects.Add(studentSubject);
 
             // saving changes to the database
-            _context.Grades.Add(grade);
+            await _context.Grades.AddAsync(grade);
 
             await _context.SaveChangesAsync();
 
@@ -96,6 +108,7 @@ namespace StudentsGrades.Services
                 grade.DateTime = DateTime.UtcNow;
                 await _context.SaveChangesAsync();
             }
+
         }
 
         public async Task DeleteGradeAsync(Guid gradeId)
@@ -107,7 +120,19 @@ namespace StudentsGrades.Services
 
             if (grade != null)
             {
+                // Delete row in table that connects student and subjects
+                var studentSubject = await _context.StudentSubjects
+                    .FirstOrDefaultAsync(ss => ss.StudentId == grade.StudentId && ss.SubjectId == grade.SubjectId);
+
+                if (studentSubject != null)
+                    _context.StudentSubjects.Remove(studentSubject);
+
+                // Delete grade
                 _context.Grades.Remove(grade);
+
+                // Calls method to delte student or subject if they don't have any grades
+                await _studentService.DeleteStudentAsync(grade.StudentId, grade.SubjectId);
+                await _subjectService.DeleteSubjectAsync(grade.SubjectId, grade.StudentId);
 
                 await _context.SaveChangesAsync();
             }

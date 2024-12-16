@@ -64,24 +64,24 @@ namespace StudentsGrades.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentsSubject",
+                name: "StudentSubjects",
                 columns: table => new
                 {
-                    StudentsStudentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    SubjectsSubjectId = table.Column<Guid>(type: "uuid", nullable: false)
+                    StudentId = table.Column<Guid>(type: "uuid", nullable: false),
+                    SubjectId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentsSubject", x => new { x.StudentsStudentId, x.SubjectsSubjectId });
+                    table.PrimaryKey("PK_StudentSubjects", x => new { x.StudentId, x.SubjectId });
                     table.ForeignKey(
-                        name: "FK_StudentsSubject_Students_StudentsStudentId",
-                        column: x => x.StudentsStudentId,
+                        name: "FK_StudentSubjects_Students_StudentId",
+                        column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "StudentId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_StudentsSubject_Subjects_SubjectsSubjectId",
-                        column: x => x.SubjectsSubjectId,
+                        name: "FK_StudentSubjects_Subjects_SubjectId",
+                        column: x => x.SubjectId,
                         principalTable: "Subjects",
                         principalColumn: "SubjectId",
                         onDelete: ReferentialAction.Cascade);
@@ -98,9 +98,9 @@ namespace StudentsGrades.Migrations
                 column: "SubjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentsSubject_SubjectsSubjectId",
-                table: "StudentsSubject",
-                column: "SubjectsSubjectId");
+                name: "IX_StudentSubjects_SubjectId",
+                table: "StudentSubjects",
+                column: "SubjectId");
         }
 
         /// <inheritdoc />
@@ -110,7 +110,7 @@ namespace StudentsGrades.Migrations
                 name: "Grades");
 
             migrationBuilder.DropTable(
-                name: "StudentsSubject");
+                name: "StudentSubjects");
 
             migrationBuilder.DropTable(
                 name: "Students");

@@ -12,8 +12,8 @@ using StudentsGrades.Data;
 namespace StudentsGrades.Migrations
 {
     [DbContext(typeof(StudentsGradesDbContext))]
-    [Migration("20241216083146_Initial")]
-    partial class Initial
+    [Migration("20241216171402_InitialV2")]
+    partial class InitialV2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,21 +24,6 @@ namespace StudentsGrades.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("StudentSubject", b =>
-                {
-                    b.Property<Guid>("StudentsStudentId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("SubjectsSubjectId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("StudentsStudentId", "SubjectsSubjectId");
-
-                    b.HasIndex("SubjectsSubjectId");
-
-                    b.ToTable("StudentsSubject", (string)null);
-                });
 
             modelBuilder.Entity("StudentsGrades.Models.Grade", b =>
                 {
@@ -86,6 +71,21 @@ namespace StudentsGrades.Migrations
                     b.ToTable("Students");
                 });
 
+            modelBuilder.Entity("StudentsGrades.Models.StudentSubject", b =>
+                {
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("SubjectId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("StudentId", "SubjectId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("StudentSubjects");
+                });
+
             modelBuilder.Entity("StudentsGrades.Models.Subject", b =>
                 {
                     b.Property<Guid>("SubjectId")
@@ -99,21 +99,6 @@ namespace StudentsGrades.Migrations
                     b.HasKey("SubjectId");
 
                     b.ToTable("Subjects");
-                });
-
-            modelBuilder.Entity("StudentSubject", b =>
-                {
-                    b.HasOne("StudentsGrades.Models.Student", null)
-                        .WithMany()
-                        .HasForeignKey("StudentsStudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StudentsGrades.Models.Subject", null)
-                        .WithMany()
-                        .HasForeignKey("SubjectsSubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("StudentsGrades.Models.Grade", b =>
@@ -135,14 +120,37 @@ namespace StudentsGrades.Migrations
                     b.Navigation("Subject");
                 });
 
+            modelBuilder.Entity("StudentsGrades.Models.StudentSubject", b =>
+                {
+                    b.HasOne("StudentsGrades.Models.Student", "Student")
+                        .WithMany("StudentSubjects")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudentsGrades.Models.Subject", "Subject")
+                        .WithMany("StudentSubjects")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Subject");
+                });
+
             modelBuilder.Entity("StudentsGrades.Models.Student", b =>
                 {
                     b.Navigation("Grades");
+
+                    b.Navigation("StudentSubjects");
                 });
 
             modelBuilder.Entity("StudentsGrades.Models.Subject", b =>
                 {
                     b.Navigation("Grades");
+
+                    b.Navigation("StudentSubjects");
                 });
 #pragma warning restore 612, 618
         }

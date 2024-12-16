@@ -7,7 +7,7 @@ namespace StudentsGrades.Services
         Task<Student> CreateStudentAsync(string firstName, string lastName);
         Task<Student?> GetStudentByIdAsync(Guid studentId);
         Task<Student?> GetStudentByNameAsync(string firstName, string lastName);
-        Task DeleteStudentAsync(Guid studentId);
+        Task DeleteStudentAsync(Guid studentId, Guid subjectId);
 
     }
 }

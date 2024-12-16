@@ -8,12 +8,11 @@ namespace StudentsGrades.Configurations
     {
         public void Configure(EntityTypeBuilder<Subject> builder)
         {
-            builder.HasKey(a => a.SubjectId);
+            builder.HasKey(j => j.SubjectId);
 
             builder
-                .HasMany(j => j.Students)
-                .WithMany(s => s.Subjects)
-                .UsingEntity(t => t.ToTable("StudentsSubject"));
+                .HasMany(j => j.StudentSubjects)
+                .WithOne(ss => ss.Subject);
 
             builder
                 .HasMany(j => j.Grades)

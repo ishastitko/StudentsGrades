@@ -4,7 +4,7 @@ namespace StudentsGrades.Models
 {
     public class Subject
     {
-        public Guid SubjectId { get; set; }
+        public Guid SubjectId { get; } = Guid.NewGuid();
         public string SubjectName { get; set; } = string.Empty;
 
         // JsonIgnore helps not sending unnecessary data to frontend
@@ -12,13 +12,10 @@ namespace StudentsGrades.Models
         [JsonIgnore]
         public List<Grade> Grades { get; set; } = [];
         [JsonIgnore]
-        public List<Student> Students { get; set; } = [];
-
-        public Subject() { }
+        public List<StudentSubject> StudentSubjects { get; set; } = [];
 
         public Subject(string subjectName)
         {
-            SubjectId = Guid.NewGuid();
             SubjectName = subjectName;
         }
     }

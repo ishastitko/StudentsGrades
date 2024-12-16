@@ -1,6 +1,7 @@
 ﻿using StudentsGrades.Models;
 using StudentsGrades.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace StudentsGrades.Services
 {
@@ -26,7 +27,7 @@ namespace StudentsGrades.Services
         public async Task<Student?> GetStudentByIdAsync(Guid studentId)
         {
             return await _context.Students
-                .Include(s => s.Subjects)
+                .Include(s => s.StudentSubjects)
                 .Include(s => s.Grades)
                 .FirstOrDefaultAsync(s => s.StudentId == studentId);
         }
@@ -37,18 +38,21 @@ namespace StudentsGrades.Services
                 .FirstOrDefaultAsync(s => s.FirstName == firstName && s.LastName == lastName);
         }
 
-        public async Task DeleteStudentAsync(Guid studentId)
+        public async Task DeleteStudentAsync(Guid studentId, Guid subjectId)
         {
-            var student = await _context.Students.FindAsync(studentId);
+            // Checking if student have any grades
+            var studentHasSubjects = await _context.StudentSubjects
+                .AnyAsync(ss => ss.StudentId == studentId && ss.SubjectId != subjectId);
 
-            if (student != null)
+            // Delete student if it doesn't have any grades
+            if (!studentHasSubjects)
             {
-                // Student will be deleted only if it has no grades and subjects
-                if (student.Grades.Count == 0 && student.Subjects.Count == 0)
-                {
+                var student = await GetStudentByIdAsync(studentId);
+
+                if (student != null)
                     _context.Students.Remove(student);
-                    await _context.SaveChangesAsync();
-                }
+
+                await _context.SaveChangesAsync();
             }
         }
     }

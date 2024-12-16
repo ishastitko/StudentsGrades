@@ -4,7 +4,7 @@ namespace StudentsGrades.Models
 {
     public class Student
     {
-        public Guid StudentId { get; set; }
+        public Guid StudentId { get; } = Guid.NewGuid();
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
 
@@ -13,13 +13,10 @@ namespace StudentsGrades.Models
         [JsonIgnore]
         public List<Grade> Grades { get; set; } = [];
         [JsonIgnore]
-        public List<Subject> Subjects { get; set; } = [];
-
-        public Student() { }
+        public List<StudentSubject> StudentSubjects { get; set; } = [];
 
         public Student(string firstName, string lastName)
         {
-            StudentId = Guid.NewGuid();
             FirstName = firstName;
             LastName = lastName;
         }

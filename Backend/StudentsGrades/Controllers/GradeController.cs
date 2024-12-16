@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using StudentsGrades.Services;
 using StudentsGrades.Models;
-using StudentsGrades.Data;
 
 namespace StudentsGrades.Controllers
 {
@@ -38,6 +36,7 @@ namespace StudentsGrades.Controllers
         [Route("Post")]
         public async Task<ActionResult<Grade>> CreateGrade(int gradeGot, string firstName, string lastName, string subjectName)
         {
+            // Returns a BadRequest if data didn't pass DataValidation
             var dataValidation = _gradeService.DataValidation(gradeGot, firstName, lastName, subjectName);
             if (!dataValidation)
                 return BadRequest();
@@ -50,9 +49,15 @@ namespace StudentsGrades.Controllers
 
         [HttpPut]
         [Route("Update")]
-        public async Task UpdateGrade(Guid gradeId, int newGrateGot)
+        public async Task<IActionResult> UpdateGrade(Guid gradeId, int newGrateGot)
         {
+            // Returns a BadRequest if data didn't pass DataValidation
+            if (newGrateGot < 1 || newGrateGot > 4)
+                return BadRequest();
+
             await _gradeService.UpdateGradeAsync(gradeId, newGrateGot);
+
+            return Ok();
         }
 
         [HttpDelete]
