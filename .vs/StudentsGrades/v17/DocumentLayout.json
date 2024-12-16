@@ -1,0 +1,77 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ilyas\\source\\repos\\StudentsGrades\\StudentsGrades\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D50B207D-28F6-44EE-9177-1CC2B8166F9F}|StudentsGrades\\StudentsGrades.csproj|c:\\users\\ilyas\\source\\repos\\studentsgrades\\studentsgrades\\studentsgrades\\services\\gradeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D50B207D-28F6-44EE-9177-1CC2B8166F9F}|StudentsGrades\\StudentsGrades.csproj|solutionrelative:studentsgrades\\services\\gradeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D50B207D-28F6-44EE-9177-1CC2B8166F9F}|StudentsGrades\\StudentsGrades.csproj|C:\\Users\\ilyas\\source\\repos\\StudentsGrades\\StudentsGrades\\studentsgrades\\configurations\\studentconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D50B207D-28F6-44EE-9177-1CC2B8166F9F}|StudentsGrades\\StudentsGrades.csproj|solutionrelative:studentsgrades\\configurations\\studentconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D50B207D-28F6-44EE-9177-1CC2B8166F9F}|StudentsGrades\\StudentsGrades.csproj|C:\\Users\\ilyas\\source\\repos\\StudentsGrades\\StudentsGrades\\studentsgrades\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D50B207D-28F6-44EE-9177-1CC2B8166F9F}|StudentsGrades\\StudentsGrades.csproj|solutionrelative:studentsgrades\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 224,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GradeService.cs",
+              "DocumentMoniker": "C:\\Users\\ilyas\\source\\repos\\StudentsGrades\\StudentsGrades\\StudentsGrades\\Services\\GradeService.cs",
+              "RelativeDocumentMoniker": "StudentsGrades\\Services\\GradeService.cs",
+              "ToolTip": "C:\\Users\\ilyas\\source\\repos\\StudentsGrades\\StudentsGrades\\StudentsGrades\\Services\\GradeService.cs",
+              "RelativeToolTip": "StudentsGrades\\Services\\GradeService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-06T13:44:33.582Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "StudentConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\ilyas\\source\\repos\\StudentsGrades\\StudentsGrades\\StudentsGrades\\Configurations\\StudentConfiguration.cs",
+              "RelativeDocumentMoniker": "StudentsGrades\\Configurations\\StudentConfiguration.cs",
+              "ToolTip": "C:\\Users\\ilyas\\source\\repos\\StudentsGrades\\StudentsGrades\\StudentsGrades\\Configurations\\StudentConfiguration.cs",
+              "RelativeToolTip": "StudentsGrades\\Configurations\\StudentConfiguration.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-06T13:44:11.277Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Student.cs",
+              "DocumentMoniker": "C:\\Users\\ilyas\\source\\repos\\StudentsGrades\\StudentsGrades\\StudentsGrades\\Models\\Student.cs",
+              "RelativeDocumentMoniker": "StudentsGrades\\Models\\Student.cs",
+              "ToolTip": "C:\\Users\\ilyas\\source\\repos\\StudentsGrades\\StudentsGrades\\StudentsGrades\\Models\\Student.cs",
+              "RelativeToolTip": "StudentsGrades\\Models\\Student.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-06T13:44:00.831Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
