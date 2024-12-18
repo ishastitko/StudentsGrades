@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import "./GradesLayout.css";
 import GradeNode from "../GradeNode/GradeNode";
 import Form from "../Form/Form";
@@ -8,17 +8,23 @@ export default function GradesLayout() {
   const [grades, setGrades] = useState([]);
   const [error, setError] = useState(null);
 
+  const BASE_URL = "http://localhost:5032/api";
+
   useEffect(() => {
     const fetchGrades = async () => {
       try {
-        const response = await fetch(`http://localhost:5032/api/Grade/Get`);
+        const response = await fetch(`${BASE_URL}/Grade/Get`);
+
         if (!response.ok) {
-          throw new Error("HTTP error. Status: ");
+          throw new Error(
+            `HTTP error. Status: ${response.status} ${response.statusText}`
+          );
         }
+
         const data = await response.json();
         setGrades(data);
-      } catch (err) {
-        setError(err.message);
+      } catch (error) {
+        setError(error.message + "\nMake sure backend is running");
       }
     };
 
@@ -27,68 +33,70 @@ export default function GradesLayout() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:5032/api/Grade/Delete?gradeId=${id}`,
-        {
-          method: "DELETE",
-        }
-      );
-      if (response.ok) {
-        console.log("Grade deleted");
-        setGrades(grades.filter((grade) => grade.gradeId !== id));
-      } else {
-        console.error("Delete error");
+      const response = await fetch(`${BASE_URL}/Grade/Delete?gradeId=${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          `HTTP error. Status: ${response.status} ${response.statusText}`
+        );
       }
+      console.log("Grade deleted");
+      setGrades(grades.filter((grade) => grade.gradeId !== id));
     } catch (error) {
-      console.error("Error: ", error.message);
+      setError(error.message + "\nCouldn't delete grade");
     }
   };
 
   const handleUpdate = async (id, newGrade) => {
     try {
       const response = await fetch(
-        `http://localhost:5032/api/Grade/Update?gradeId=${id}&newGrateGot=${newGrade}`,
+        `${BASE_URL}/Grade/Update?gradeId=${id}&newGrateGot=${newGrade}`,
         {
           method: "PUT",
         }
       );
-      if (response.ok) {
-        console.log("Grade updated");
-
-        const s = grades.map((grade) =>
-          grade.gradeId === id ? { ...grade, gradeGot: newGrade } : grade
+      if (!response.ok) {
+        throw new Error(
+          `HTTP error. Status: ${response.status} ${response.statusText}`
         );
-        setGrades(s);
-      } else {
-        console.error("Failed to update: ", error.message);
       }
+      console.log("Grade updated");
+
+      const s = grades.map((grade) =>
+        grade.gradeId === id ? { ...grade, gradeGot: newGrade } : grade
+      );
+      setGrades(s);
     } catch (error) {
-      console.error("Error: ", error.message);
+      setError(error.message + "\nCouldn't update grade");
     }
   };
 
   const handleCreate = async (firstName, lastName, subjectName, gradeGot) => {
     try {
       const response = await fetch(
-        `http://localhost:5032/api/Grade/Post?gradeGot=${gradeGot}&firstName=${firstName}&lastName=${lastName}&subjectName=${subjectName}`,
+        `${BASE_URL}/Grade/Post?gradeGot=${gradeGot}&firstName=${firstName}&lastName=${lastName}&subjectName=${subjectName}`,
         { method: "POST" }
       );
 
-      if (response.ok) {
-        console.log("Grade added");
-
-        const newGrade = await response.json();
-        setGrades((prevGrades) => [...prevGrades, newGrade]);
-      } else {
-        console.error("Failed to add Grade: ", error.message);
+      if (!response.ok) {
+        throw new Error(
+          `HTTP error. Status: ${response.status} ${response.statusText}`
+        );
       }
+      console.log("Grade added");
+
+      const newGrade = await response.json();
+      setGrades((prevGrades) => [...prevGrades, newGrade]);
     } catch (error) {
       console.error("Error: ", error.message);
     }
   };
 
   if (error) {
-    return <div>Error: {error}</div>;
+    alert("Error: " + error);
+    setError(null);
   }
 
   return (
@@ -96,8 +104,7 @@ export default function GradesLayout() {
       <div>
         <Form onCreate={handleCreate} />
       </div>
-      <div>
-      </div>
+      <div></div>
       <div className="list-layout">
         {grades.map((grade) => (
           <GradeNode

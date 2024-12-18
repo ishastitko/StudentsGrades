@@ -35,12 +35,14 @@ export default function GradeNode({
     setInputLabel(false);
   };
 
+  // If button Update is clicked displaing buttons Submit and Cancel
+  // Otherwise Update and Delete
   return (
     <div className="grade-node">
       <label className="label-node">{firstName}</label>
       <label className="label-node">{lastName}</label>
       <label className="label-node">{subjectName}</label>
-
+      
       {inputLabel === false && <label className="label-grade shared-grade">{gradeGot}</label>}
 
       {inputLabel === true && (

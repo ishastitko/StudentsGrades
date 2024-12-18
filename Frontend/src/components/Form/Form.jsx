@@ -9,6 +9,7 @@ export default function Form({ onCreate }) {
   const [gradeGot, setGradeGot] = useState("");
   const [hasError, setHasError] = useState(true);
 
+  // Data validation for submiting the form
   const validateForm = (updateValues = {}) => {
     const fName = updateValues.firstName ?? firstName;
     const lName = updateValues.lastName ?? lastName;
