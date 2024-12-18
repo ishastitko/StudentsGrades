@@ -4,7 +4,7 @@ namespace StudentsGrades.Models
 {
     /*
      * The StudentSubject class exists to resolve
-     * many to many connectinos between student and subject
+     * many to many relation between Student and Subject classes
      */
     public class StudentSubject
     {
