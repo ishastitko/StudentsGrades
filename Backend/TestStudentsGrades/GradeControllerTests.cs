@@ -96,5 +96,89 @@ namespace StudentsGrades.Tests
             var createdGrade = Assert.IsType<Grade>(actionResult.Value);
             Assert.Equal(grade.GradeId, createdGrade.GradeId);
         }
+
+        [Fact]
+        public async Task CreateGrade_InvalidFirstName_ReturnsBadRequest()
+        {
+            // Arrange
+            _mockGradeService.Setup(s => s.DataValidation(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(false);
+
+            // Act
+            var result = await _controller.CreateGrade(1, "123", "Doe", "Math");
+
+            // Assert
+            Assert.IsType<BadRequestResult>(result.Result);
+        }
+
+        [Fact]
+        public async Task CreateGrade_InvalidLastName_ReturnsBadRequest()
+        {
+            // Arrange
+            _mockGradeService.Setup(s => s.DataValidation(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(false);
+
+            // Act
+            var result = await _controller.CreateGrade(1, "John", "123", "Math");
+
+            // Assert
+            Assert.IsType<BadRequestResult>(result.Result);
+        }
+
+        [Fact]
+        public async Task CreateGrade_InvalidGrade_ReturnsBadRequest()
+        {
+            // Arrange
+            _mockGradeService.Setup(s => s.DataValidation(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(false);
+
+            // Act
+            var result = await _controller.CreateGrade(123, "John", "Doe", "Math");
+
+            // Assert
+            Assert.IsType<BadRequestResult>(result.Result);
+        }
+
+        [Fact]
+        public async Task UpdateGrade_ValidData_ReturnsOk()
+        {
+            // Arrange
+            var gradeId = Guid.NewGuid();
+            _mockGradeService.Setup(s => s.UpdateGradeAsync(gradeId, It.IsAny<int>())).Returns(Task.CompletedTask);
+
+            // Act
+            var result = await _controller.UpdateGrade(gradeId, 2);
+
+            // Assert
+            Assert.IsType<OkResult>(result);
+        }
+
+        [Fact]
+        public async Task UpdateGrade_InvalidData_ReturnsBadRequest()
+        {
+            // Arrange
+            var gradeId = Guid.NewGuid();
+            _mockGradeService.Setup(s => s.UpdateGradeAsync(gradeId, It.IsAny<int>())).Returns(Task.CompletedTask);
+
+            // Act
+            var result = await _controller.UpdateGrade(gradeId, 6);
+
+            // Assert
+            Assert.IsType<BadRequestResult>(result);
+        }
+
+        [Fact]
+        public async Task DeleteAsync_ValidId_CallService()
+        {
+            // Arrange
+            var gradeId = Guid.NewGuid();
+            _mockGradeService.Setup(s => s.DeleteGradeAsync(gradeId)).Returns(Task.CompletedTask);
+
+            // Act
+            await _controller.DeleteAsync(gradeId);
+
+            // Assert
+            _mockGradeService.Verify(s => s.DeleteGradeAsync(gradeId), Times.Once);
+        }
     }
 }
