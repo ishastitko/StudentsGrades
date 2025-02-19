@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Moq;
+﻿using Moq;
 using Xunit;
 using StudentsGrades.Controllers;
 using StudentsGrades.Models;
@@ -65,7 +60,7 @@ namespace StudentsGrades.Tests
         public async Task GetGradeById_GradeNotFound_ReturnsNotFound()
         {
             // Arrange
-            _mockGradeService.Setup(s => s.GetGradeByIdAsync(It.IsAny<Guid>())).ReturnsAsync((Grade)null);
+            _mockGradeService.Setup(s => s.GetGradeByIdAsync(It.IsAny<Guid>())).ReturnsAsync((Grade?)null);
 
             // Act
             var result = await _controller.GetGradeById(Guid.NewGuid());

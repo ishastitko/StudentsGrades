@@ -1,7 +1,6 @@
 ﻿using StudentsGrades.Models;
 using StudentsGrades.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 
 namespace StudentsGrades.Services
 {
